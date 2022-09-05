@@ -54,12 +54,12 @@ fetch(`http://localhost:3000/api/products/${id}`)
     image.src = product.imageUrl;
     image.alt = product.altTxt;
 
-    //Variable pour afficher le nom du produit
-    let name = product.name;
+    // //Variable pour afficher le nom du produit
+    // let name = product.name;
 
     //sélection direct de l'id Title pour lier le nom du produit aux données du tableau
     const nameProduit = document.querySelector("#title");
-    nameProduit.textContent = name;
+    nameProduit.textContent = product.name;
 
     //variable pour le prix
     let prixKanap = product.price;
@@ -111,19 +111,23 @@ fetch(`http://localhost:3000/api/products/${id}`)
               }
          
             let addId = `${id}`+colors.substring(2);
+            let Name = product.name.slice(5)
+           
      
      
     // /*création d'un objet pour identfier les donner à stocker dans le 
     // localStorage*/
     
-   let dataStorage = {
+   const dataStorage = {
         addId : addId,
-        addName : name,
-        nombre : Number(quantite)+`.qty`,
+        Name : Name,
+        quantité : Number(quantite),
         color : colors,
         
     }
    
+
+
     localStorage.setItem(addId,JSON.stringify(dataStorage));
    
 
@@ -135,12 +139,4 @@ fetch(`http://localhost:3000/api/products/${id}`)
     }   
     
 }
-
-
-
-
-
-
-
-
 
