@@ -79,16 +79,6 @@ function pageProduit(product) {
       }
 
       let addId = `${id}` + ":" + colors;
-
-      // /*création d'un objet pour identfier les donner à stocker dans le
-      // localStorage*/
-
-      const dataStorage = {
-        id: addId,
-        quantité: Number(quantite),
-        color: colors
-      };
-
       localStorage.setItem(addId, JSON.stringify(product));
 
       //redirection vers le pannier

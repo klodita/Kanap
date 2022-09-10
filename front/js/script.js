@@ -32,12 +32,12 @@ function produitAccueil(array) {
 
     // donnée et détail dans la balise h3
     const h3 = document.createElement("h3");
-    h3.classList = "productName";
+    h3.classList.add("productName");
     h3.textContent = array.name;
 
     // donné et détail dans la balise p
     const p = document.createElement("p");
-    p.classList = "productDescription";
+    p.classList.add("productDescription");
     p.textContent = array.description;
 
     // appel de la fonction afin de montrer les enfants du parent #Items
