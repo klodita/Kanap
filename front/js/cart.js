@@ -1,7 +1,10 @@
 
 
 // pour afficher la liste total de chaque produit grace à la fonction push dans la loop for
-const dataPanier = []
+let dataPanier = []
+let dataPrice = [];
+let dataPrice1 = [];
+
 recapPanier();
 /*Pour chaque élément dans dataPanier, cette boucle va permettre de créer toutes les
 balises et données contenue dans la page cart.html en commentaire ligne 51 à 71 */
@@ -78,7 +81,8 @@ function afficherTag(produit) {
     inputQuantity.name = "itempQuantity";
     inputQuantity.min = "1";
     inputQuantity.max ="100";
-    inputQuantity.defaultValue = produit.quantité;
+    inputQuantity.value = produit.quantité;
+    inputQuantity.addEventListener("change",()=> updateArticlePrice(produit.addId, inputQuantity.value));
 
     const divDelete = document.createElement("div");
     divDelete.classList = "cart__item__content__setting__delete";
@@ -114,9 +118,12 @@ function afficherTag(produit) {
 
 
     divDelete.appendChild(pDelete);
+    totalArticle()
+    totalPrice()
+    
+    
   
-
-
+    
 
 fetch('http://localhost:3000/api/products/')
 .then ((res)=> {return res.json()})
@@ -126,14 +133,14 @@ fetch('http://localhost:3000/api/products/')
 })
 
 function data(array) {
+    
    
 /* création des variables liés aux réferences du produit sauvegardé dans le localStoraga afin de faire les conditions Else if en
 fonction de chaque produit en tenant compte de l'id et la couleur */
      let refId = produit.addId;
      let refColor = produit.color;
      let newId = refId.slice(0,32);
-   
-
+  
 
    // Donnée de l'API  Kanap Sinopé avec Id et ses options couleurs
    if ( newId == array[0]._id){
@@ -142,6 +149,10 @@ fonction de chaque produit en tenant compte de l'id et la couleur */
         image.alt =array[0].altTxt;
         h2Description.textContent = array[0].name;
         p.innerText = array[0].price +"€";
+        let price0 = array[0].price * produit.quantité;
+        dataPrice.push(price0);
+        totalPrice()
+        totalArticle();
     }
 
     // Donnée de l'API Kanap Cyllène avec Id et ses options couleurs
@@ -151,6 +162,10 @@ fonction de chaque produit en tenant compte de l'id et la couleur */
             image.alt =array[1].altTxt;
             h2Description.textContent = array[1].name;
             p.innerText = array[1].price +"€";
+            let price1 = array[1].price * produit.quantité;
+            dataPrice.push(price1);
+            totalPrice()
+            totalArticle();
         }
 
     // Donnée de l'API Kanap Calycé avec Id et ses options couleurs   
@@ -160,6 +175,10 @@ fonction de chaque produit en tenant compte de l'id et la couleur */
                 image.alt =array[2].altTxt;
                 h2Description.textContent = array[2].name;
                 p.innerText = array[2].price +"€";
+                let price2 = array[2].price * produit.quantité;
+                dataPrice.push(price2);
+                totalPrice()
+                totalArticle();
             }
 
 
@@ -170,6 +189,10 @@ fonction de chaque produit en tenant compte de l'id et la couleur */
                 image.alt =array[3].altTxt;
                 h2Description.textContent = array[3].name;
                 p.innerText = array[3].price +"€";
+                let price3 = array[3].price * produit.quantité;
+                dataPrice.push(price3);
+                totalPrice()
+                totalArticle();
             }
 
 
@@ -180,6 +203,10 @@ fonction de chaque produit en tenant compte de l'id et la couleur */
             image.alt =array[4].altTxt;
             h2Description.textContent = array[4].name;
             p.innerText = array[4].price +"€";
+            let price4 = array[4].price * produit.quantité;
+            dataPrice.push(price4);
+            totalPrice()
+            totalArticle();
         }
 
     // Donnée de l'API Kanap Helicé avec Id et ses options couleurs
@@ -189,6 +216,10 @@ fonction de chaque produit en tenant compte de l'id et la couleur */
             image.alt =array[5].altTxt;
             h2Description.textContent = array[5].name;
             p.innerText = array[5].price +"€";
+            let price5 = array[5].price * produit.quantité;
+            dataPrice.push(price5);
+            totalPrice()
+            totalArticle();
         }
  
 
@@ -198,7 +229,11 @@ fonction de chaque produit en tenant compte de l'id et la couleur */
             image.src = array[6].imageUrl;
             image.alt =array[6].altTxt;
             h2Description.textContent = array[6].name;
-            p.innerText = array[6].price +"€";
+            p.innerText = array[6].price +"€";  
+            let price6 = array[6].price * produit.quantité;
+            dataPrice.push(price6);
+            totalPrice()
+            totalArticle();
         }
   
 
@@ -209,11 +244,71 @@ fonction de chaque produit en tenant compte de l'id et la couleur */
             image.alt =array[7].altTxt;
             h2Description.textContent = array[7].name;
             p.innerText = array[7].price +"€";
+            let price7 = array[7].price * produit.quantité;
+            dataPrice.push(price7);
+            totalPrice()
+            totalArticle();
         }
-            
-}
 
-
-}
-
+       
+totalPrice()
     
+}
+
+
+
+}
+
+
+
+// Function qui va permettre de calculer le total d'article dans le panier
+function totalArticle(){
+
+    const spanQuantite = document.querySelector("#totalQuantity");
+    const total = dataPanier.reduce((total,produit)=> total + produit.quantité,0);
+    spanQuantite.innerHTML = total;
+    
+}
+
+
+function totalPrice(){
+
+    const spanPrice = document.querySelector("#totalPrice");
+    const total = dataPrice.reduce((total,price)=> total + price,0)
+    spanPrice.innerHTML = total; 
+
+    console.log("le prix du panier :", total)
+ 
+}
+
+function updateArticlePrice (addId,newValue){
+   
+
+    const produitData = dataPanier.find((produit)=> produit.addId == addId);
+    produitData.quantité = Number(newValue);  
+    localStorage.setItem(addId,JSON.stringify(produitData))
+
+    let refId = produitData.addId;
+    let refColor = produitData.color;
+    let newId = refId.slice(0,32);
+
+ 
+    const spanPrice = document.querySelector("#totalPrice");
+    const total = dataPrice.reduce((total,price)=> total + price,0)
+    console.log("find data price", total)
+    spanPrice.innerHTML = total; 
+    window.location.reload(true);
+
+ 
+   totalArticle()
+ 
+}
+
+
+
+
+
+
+
+
+

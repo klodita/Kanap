@@ -99,7 +99,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
         /*variable pour écouter les évènement sur le bouton "ajouter au panier"*/
         const bouton = document.querySelector("#addToCart");
             if(bouton != null){
-               bouton.addEventListener("click", (e) => {
+               bouton.addEventListener("click", () => {
                const colors = document.querySelector("#colors").value;
                const quantite = document.querySelector("#quantity").value;
             
@@ -111,7 +111,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
               }
          
             let addId = `${id}`+colors.substring(2);
-            let Name = product.name.slice(5)
+           
            
      
      
@@ -120,7 +120,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
     
    const dataStorage = {
         addId : addId,
-        Name : Name,
         quantité : Number(quantite),
         color : colors,
         
