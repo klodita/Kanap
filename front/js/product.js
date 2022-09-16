@@ -28,21 +28,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
 )
 
 
-   function pageProduit(array){
-
-    function Array(_id,name,colors,description,imageUrl,altTxt,price) {
-        this._id = _id,
-        this.name = name,
-        this.colors = colors,
-        this.description = description,
-        this.imageUrl = imageUrl,
-        this.altTxt = altTxt,
-        this.price = price
-    }
-
-    const product = new Array (array._id,array.name,array.colors,array.description,array.imageUrl,array.altTxt,array.price);
-
-    id = product._id;
+   function pageProduit(kanap){
 
     
     // sélection direct de l'id pour donné un parent à image pour apparaitre dans le Dom
@@ -51,18 +37,18 @@ fetch(`http://localhost:3000/api/products/${id}`)
     // variable pour créer une image et intégré l'url et alt      
     const image = document.createElement("img");
     itemImg.appendChild(image);
-    image.src = product.imageUrl;
-    image.alt = product.altTxt;
+    image.src = kanap.imageUrl;
+    image.alt = kanap.altTxt;
 
     // //Variable pour afficher le nom du produit
     // let name = product.name;
 
     //sélection direct de l'id Title pour lier le nom du produit aux données du tableau
     const nameProduit = document.querySelector("#title");
-    nameProduit.textContent = product.name;
+    nameProduit.textContent = kanap.name;
 
     //variable pour le prix
-    let prixKanap = product.price;
+    let prixKanap = kanap.price;
 
     /*séléction direct de l'id prix pour le lier au donné 
     pour le prix du produit*/
@@ -71,7 +57,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
     
    
     // variable pour intégrer le texte descriptif
-    let description = product.description;
+    let description = kanap.description;
 
     /*séléction direct de l'id description pour le lier au donné 
     pour la description du produit*/
@@ -80,7 +66,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
             
    
     // variable pour intégrer les couleur avec son document query Selector "select"
-    let couleur = product.colors;
+    let couleur = kanap.colors;
 
     /*séléction direct de l'id colors et création de la balise option 
     pour le lié au donné pour afficher plusieurs choix de couleur*/
@@ -110,7 +96,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
                 return bouton;
               }
          
-            let addId = `${id}`+colors.substring(2);
+            let addId = `${id}`+ colors.substring(2);
            
            
      

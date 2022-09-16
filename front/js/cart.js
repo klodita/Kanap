@@ -1,9 +1,7 @@
 
-
 // pour afficher la liste total de chaque produit grace à la fonction push dans la loop for
 let dataPanier = []
 let dataPrice = [];
-let dataPrice1 = [];
 
 recapPanier();
 /*Pour chaque élément dans dataPanier, cette boucle va permettre de créer toutes les
@@ -40,6 +38,12 @@ qui a été enregistré dans le localStorage, et l'appel API avec fetch va perme
 ainsi que le prix unitaire en fonction de chaque produit par rapport à leur ID */
 
 function afficherTag(produit) {
+
+ /* création des variables liés aux réferences du produit sauvegardé dans le localStoraga afin de faire les conditions Else if en
+fonction de chaque produit en tenant compte de l'id et la couleur */
+let refId = produit.addId;
+let refColor = produit.color;
+let newId = refId.slice(0,32); 
 
     const section = document.querySelector("#cart__items");
 
@@ -83,6 +87,7 @@ function afficherTag(produit) {
     inputQuantity.max ="100";
     inputQuantity.value = produit.quantité;
     inputQuantity.addEventListener("change",()=> updateArticlePrice(produit.addId, inputQuantity.value));
+    
 
     const divDelete = document.createElement("div");
     divDelete.classList = "cart__item__content__setting__delete";
@@ -118,14 +123,17 @@ function afficherTag(produit) {
 
 
     divDelete.appendChild(pDelete);
-    totalArticle()
-    totalPrice()
-    
-    
-  
+   
     
 
-fetch('http://localhost:3000/api/products/')
+    totalArticlePrice()
+   
+
+
+
+
+
+fetch(`http://localhost:3000/api/products/${newId}`)
 .then ((res)=> {return res.json()})
 
 .then ((kanap)=> {
@@ -133,177 +141,79 @@ fetch('http://localhost:3000/api/products/')
 })
 
 function data(array) {
-    
-   
-/* création des variables liés aux réferences du produit sauvegardé dans le localStoraga afin de faire les conditions Else if en
-fonction de chaque produit en tenant compte de l'id et la couleur */
-     let refId = produit.addId;
-     let refColor = produit.color;
-     let newId = refId.slice(0,32);
-  
 
-   // Donnée de l'API  Kanap Sinopé avec Id et ses options couleurs
-   if ( newId == array[0]._id){
-    if(refColor == array[0].colors[0] || refColor == array[0].colors[1] || refColor == array[0].colors[2])
-        image.src = array[0].imageUrl;
-        image.alt =array[0].altTxt;
-        h2Description.textContent = array[0].name;
-        p.innerText = array[0].price +"€";
-        let price0 = array[0].price * produit.quantité;
-        dataPrice.push(price0);
-        totalPrice()
-        totalArticle();
-    }
-
-    // Donnée de l'API Kanap Cyllène avec Id et ses options couleurs
-    else if ( newId == array[1]._id){
-        if(refColor == array[1].colors[0] || refColor == array[1].colors[1])
-            image.src = array[1].imageUrl;
-            image.alt =array[1].altTxt;
-            h2Description.textContent = array[1].name;
-            p.innerText = array[1].price +"€";
-            let price1 = array[1].price * produit.quantité;
-            dataPrice.push(price1);
-            totalPrice()
-            totalArticle();
-        }
-
-    // Donnée de l'API Kanap Calycé avec Id et ses options couleurs   
-    else if ( newId == array[2]._id){
-            if(refColor == array[2].colors[0] || refColor == array[2].colors[1] || refColor == array[2].colors[2])
-                image.src = array[2].imageUrl;
-                image.alt =array[2].altTxt;
-                h2Description.textContent = array[2].name;
-                p.innerText = array[2].price +"€";
-                let price2 = array[2].price * produit.quantité;
-                dataPrice.push(price2);
-                totalPrice()
-                totalArticle();
-            }
-
-
-    // Donnée de l'API Kanap Autonoé avec Id option couleurs        
-    else if ( newId == array[3]._id){
-            if(refColor == array[3].colors[0] || refColor == array[3].colors[1])
-                image.src = array[3].imageUrl;
-                image.alt =array[3].altTxt;
-                h2Description.textContent = array[3].name;
-                p.innerText = array[3].price +"€";
-                let price3 = array[3].price * produit.quantité;
-                dataPrice.push(price3);
-                totalPrice()
-                totalArticle();
-            }
-
-
-    // Donnée de l'API Kanap Eurydomé avec Id et ses options couleurs
-    else if ( newId == array[4]._id){
-        if(refColor == array[4].colors[0] || refColor == array[4].colors[1] || refColor == array[4].colors[2])
-            image.src = array[4].imageUrl;
-            image.alt =array[4].altTxt;
-            h2Description.textContent = array[4].name;
-            p.innerText = array[4].price +"€";
-            let price4 = array[4].price * produit.quantité;
-            dataPrice.push(price4);
-            totalPrice()
-            totalArticle();
-        }
-
-    // Donnée de l'API Kanap Helicé avec Id et ses options couleurs
-    else if ( newId == array[5]._id){
-        if(refColor == array[5].colors[0] || refColor == array[5].colors[1] || refColor == array[5].colors[2])
-            image.src = array[5].imageUrl;
-            image.alt =array[5].altTxt;
-            h2Description.textContent = array[5].name;
-            p.innerText = array[5].price +"€";
-            let price5 = array[5].price * produit.quantité;
-            dataPrice.push(price5);
-            totalPrice()
-            totalArticle();
-        }
- 
-
-    // Donnée de l'API Kanap Thyoné avec Id et ses options couleurs
-    else if ( newId == array[6]._id){
-        if(refColor == array[6].colors[0] || refColor == array[6].colors[1] || refColor == array[6].colors[2])
-            image.src = array[6].imageUrl;
-            image.alt =array[6].altTxt;
-            h2Description.textContent = array[6].name;
-            p.innerText = array[6].price +"€";  
-            let price6 = array[6].price * produit.quantité;
-            dataPrice.push(price6);
-            totalPrice()
-            totalArticle();
-        }
-  
-
-    // Donnée de l'API Kanap Orthosie avec Id et ses options couleurs
-    else if ( newId == array[7]._id){
-        if(refColor == array[7].colors[0] || refColor == array[7].colors[1] || refColor == array[7].colors[2] || refColor == array[7].colors[3])
-            image.src = array[7].imageUrl;
-            image.alt =array[7].altTxt;
-            h2Description.textContent = array[7].name;
-            p.innerText = array[7].price +"€";
-            let price7 = array[7].price * produit.quantité;
-            dataPrice.push(price7);
-            totalPrice()
-            totalArticle();
-        }
-
-       
-totalPrice()
-    
-}
-
+        let id = array._id;   
+        image.src = array.imageUrl;
+        image.alt =array.altTxt;
+        h2Description.textContent = array.name;
+        p.innerText = array.price +"€";
+        let price = array.price * inputQuantity.value;
+        dataPrice.push(price);
+        totalArticlePrice()
+        
 
 
 }
 
 
 
-// Function qui va permettre de calculer le total d'article dans le panier
-function totalArticle(){
-
-    const spanQuantite = document.querySelector("#totalQuantity");
-    const total = dataPanier.reduce((total,produit)=> total + produit.quantité,0);
-    spanQuantite.innerHTML = total;
-    
-}
-
-
-function totalPrice(){
-
-    const spanPrice = document.querySelector("#totalPrice");
-    const total = dataPrice.reduce((total,price)=> total + price,0)
-    spanPrice.innerHTML = total; 
-
-    console.log("le prix du panier :", total)
- 
-}
-
-function updateArticlePrice (addId,newValue){
-   
+function updateArticlePrice (addId,value){
+    let refId = produit.addId;
+    let refColor = produit.color;
+    let newId = refId.slice(0,32); 
 
     const produitData = dataPanier.find((produit)=> produit.addId == addId);
-    produitData.quantité = Number(newValue);  
-    localStorage.setItem(addId,JSON.stringify(produitData))
-
-    let refId = produitData.addId;
-    let refColor = produitData.color;
-    let newId = refId.slice(0,32);
-
+    if(article.dataset.id == refId && article.dataset.colors == refColor){
+       produitData.quantité = Number(value); 
+         localStorage.setItem(addId,JSON.stringify(produitData))
  
+    }
+//    totalArticlePrice()
+    
+  
+ 
+ 
+
+    fetch(`http://localhost:3000/api/products/${newId}`)
+.then ((res)=> {return res.json()})
+
+.then ((kanap)=> {
+   data(kanap)})
+
+ function data(kanap){
+
+
+    let price = kanap.price;
+    dataPrice.push(price)
+    
+    totalArticlePrice()
+
+    return price * produitData
+ }
+
+
+} 
+
+
+
+// Function qui va permettre de calculer le total d'article et le prix dans le panier
+function totalArticlePrice(){
+
+    const spanQuantite = document.querySelector("#totalQuantity");
+    const total0 = dataPanier.reduce((total,produit)=> total + produit.quantité,0);
+    spanQuantite.innerHTML = total0;
+
     const spanPrice = document.querySelector("#totalPrice");
-    const total = dataPrice.reduce((total,price)=> total + price,0)
-    console.log("find data price", total)
-    spanPrice.innerHTML = total; 
-    window.location.reload(true);
+    const total1 = dataPrice.reduce((total,price)=> total + price,0)
+    spanPrice.innerHTML = total1; 
 
- 
-   totalArticle()
- 
+
+    
 }
 
+
+
+   }  
 
 
 
