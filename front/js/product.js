@@ -4,9 +4,7 @@
 fletch sur la page produit*/ 
 
 const queryString = window.location.search;
-console.log(queryString);
 let id = queryString.slice(3);
-console.log(id);
 
 
 
@@ -22,7 +20,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
 )
 .then(
     (res) => {
-        // console.log("les Kanap",res)
     return pageProduit(res);
     } 
 )
@@ -80,8 +77,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
     }
     )}
 
-
-  
         /*variable pour écouter les évènement sur le bouton "ajouter au panier"*/
         const bouton = document.querySelector("#addToCart");
             if(bouton != null){
@@ -111,15 +106,11 @@ fetch(`http://localhost:3000/api/products/${id}`)
         
     }
    
-
-
     localStorage.setItem(addId,JSON.stringify(dataStorage));
    
-
     //redirection vers le pannier
     window.location.href = "cart.html";
     
-
 })
     }   
     

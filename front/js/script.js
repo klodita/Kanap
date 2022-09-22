@@ -9,7 +9,6 @@ fetch('http://localhost:3000/api/products/')
 )
 .then(
     (kanap) => {
-    // console.log(kanap)
     return produitAccueil(kanap);
     }  
 )
@@ -52,8 +51,6 @@ createTagElement(aHref,article,image,h3,p);
 })
   
 }
-
-
 
 /*Fonction qui permet de donner des enfants au parent #items afin
 de le rendre visible dans le code html dans le DOM*/
