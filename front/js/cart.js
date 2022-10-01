@@ -591,24 +591,40 @@ const body = {
   products : products
 }
 
+fetch("http://localhost:3000/api/products/order", {
+  method :"POST",
+  body :  JSON.stringify(body),
+  headers : {
+    "content-type" : "application/json"},
+})
+.then((res)=>{
+  return res.json();
+})
+.then((kanap)=>{
+ 
+/*Cette partie permet de vider le formulaire et le localStorage lorsque l'utilisateur 
+va cliquer sur Commander,sachant que les données sont déjà enregistré dans les tableaux 
+contact et products avec les contrôles regEx*/
 
-  fetch("http://localhost:3000/api/products/order", {
-    method :"POST",
-    body :  JSON.stringify(body),
-    headers : {
-      "content-type" : "application/json"},
-  })
-  .then((res)=>{
-    return res.json();
-  })
-  .then((kanap)=>{
-   
-    localStorage.clear()
-    window.location.href = "confirmation.html?id="+kanap.orderId;
+localStorage.clear()
 
-  })
-  .catch((error) =>{
-    console.error(error)
-  })
+if(validForm = true){
+form['firstName'].value = "";
+form['lastName'].value = "";
+form['address'].value = "";
+form['city'].value = "";
+form['email'].value = "";
+
+}
+
+//Redirection vers la page confirmation de commande.
+window.location.href = "confirmation.html?id="+kanap.orderId;
+  
+
+})
+.catch((error) =>{
+  console.error(error)
+})
+
 
 })
