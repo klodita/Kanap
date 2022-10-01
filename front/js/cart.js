@@ -62,7 +62,7 @@ Panier.map((produit)=>{
     const itemQuantity = document.createElement("value");
     itemQuantity.innerText = `${quantité}`;
     const divDelete = document.createElement("div");
-    divDelete.classList.add("cart__item__content__setting__delete");
+    divDelete.classList.add("cart__item__content__settings__delete");
     const pDelete = document.createElement("p");
     pDelete.classList.add("deleteItem");
     pDelete.innerText = "Supprimer";
