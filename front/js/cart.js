@@ -289,7 +289,7 @@ Panier.map((produit)=>{
     })
 /************************************************************************************/ 
 
-/********************* CACULE PREMIER PANIER APRES CHOIX PAGE PRODUIT ***************/
+/********************* CAlCULE PREMIER PANIER APRES CHOIX PAGE PRODUIT ***************/
    
 // Calcule du Prix 
       
@@ -308,7 +308,7 @@ spanQuantite.innerHTML = artQuantité;
 /********************************************************************************* */
 
 
-/************************** CHANGE QUANTITY ET CALCULE SECOND PANIER*******************/
+/************************** CHANGEMENT QUANTITE ET CALCULE DU SECOND PANIER*******************/
 
    
  const changeQT = document.querySelectorAll(".itemQuantity");
@@ -452,8 +452,6 @@ spanPrice.innerHTML = total;
 }
 
 //fin map Panier 
-
-
 })
 
 
@@ -470,7 +468,7 @@ if(Panier.length === 0){
 }
     
 
-/**Constitution d'un tableau pour conserver les données clients avec les ids */
+/**Constitution d'un tableau pour conserver les données client avec les ids */
 let contact = [];
 let products = [];
 
