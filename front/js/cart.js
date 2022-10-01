@@ -386,11 +386,11 @@ spanQuantite.innerHTML = artQuantité;
 
         //Hélicé
         if(newId == array[5]._id && refColor == array[5].colors[0]){
-          let price13 = array[5].price * produit.quantité;
+          let price13 = array[5].price * produitData.quantité;
           dataPrice[13]=price13;
         }
         else if(newId == array[5]._id && refColor == array[5].colors[1] ){
-          let price14 = array[5].price * produit.quantité;
+          let price14 = array[5].price * produitData.quantité;
           dataPrice[14]=price14;
         }
 
@@ -398,30 +398,30 @@ spanQuantite.innerHTML = artQuantité;
         //Thyoné
         
         if(newId == array[6]._id && refColor == array[6].colors[0]){
-          let price15 = array[6].price * produit.quantité;
+          let price15 = array[6].price * produitData.quantité;
           dataPrice[15]=price15;
         }
         else if(newId == array[6]._id && refColor == array[6].colors[1] ){
-          let price16 = array[6].price * produit.quantité;
+          let price16 = array[6].price * produitData.quantité;
           dataPrice[16]=price16;
         }
 
 
         //Orthosie
         if(newId == array[7]._id && refColor == array[7].colors[0]){
-          let price17 = array[7].price * produit.quantité;
+          let price17 = array[7].price * produitData.quantité;
           dataPrice[17]=price17;
         }
         else if(newId == array[7]._id && refColor == array[7].colors[1] ){
-          let price18 = array[7].price * produit.quantité;
+          let price18 = array[7].price * produitData.quantité;
           dataPrice[18]=price18;
         }
         else if(newId == array[7]._id && refColor == array[7].colors[2] ){
-          let price19 = array[7].price * produit.quantité;
+          let price19 = array[7].price * produitData.quantité;
           dataPrice[19]=price19;
         }
         else if(newId == array[7]._id && refColor == array[7].colors[3] ){
-          let price20 = array[7].price * produit.quantité;
+          let price20 = array[7].price * produitData.quantité;
           dataPrice[20]=price20;
         }
 
@@ -456,3 +456,159 @@ spanPrice.innerHTML = total;
 
 })
 
+
+
+/************************************PARTIE FORMULAIRE ******************************/
+
+document.querySelector("#order").addEventListener("click", (e)=>{
+  e.preventDefault();
+
+
+if(Panier.length === 0){
+  alert("Votre panier est vide ! Choissez un ou plusieurs article pour constituer votre panier d'achat, merci.")
+  return  window.location.href = "index.html"
+}
+    
+
+/**Constitution d'un tableau pour conserver les données clients avec les ids */
+let contact = [];
+let products = [];
+
+
+/**Création des expressions régulière pour contrôler ce qui est saisi dans le formulaire de commande**/
+let nameRegex = /^[A-ZÄÂÉÈËÊÏÎÔÔÜÛÇa-zäâàéèëêüïîüûç -]+$/i;
+let addressRegex = /^[A-ZÄÂÉÈËÊÏÎÔÔÜÛÇa-zäâàéèëêüïîüûç\ \-\'\d\.\,]+$/i;
+let emailRegex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/
+
+
+let form = e.target.closest("form");
+let validForm = true;
+
+/************************Travail sur l'input FirstName************************* */
+ 
+  
+if(form['firstName'].value === "" || !nameRegex.test(form['firstName'].value)){
+  firstNameErrorMsg.innerHTML ="Veuillez entrer votre Prénom, merci.";
+  validForm = false;
+  return false
+}
+else{
+  firstNameErrorMsg.innerHTML ="";
+  let firstName = form['firstName'].value;
+  contact[0]= firstName;
+  validForm = true;
+
+}
+
+/************************Travail sur l'input lastName************************* */
+ 
+
+if(form['lastName'].value === "" || !nameRegex.test(form['lastName'].value)){
+  lastNameErrorMsg.innerHTML ="Veuillez entrer votre Nom, merci.";
+  validForm = false;
+  return false
+}
+else{
+  lastNameErrorMsg.innerHTML ="";
+  let lastName = form['lastName'].value;
+  contact[1]= lastName;
+  validForm = true;
+
+}
+
+/************************Travail sur l'input Address************************* */
+ 
+
+if(form['address'].value === "" || !addressRegex.test(form['address'].value)){
+  addressErrorMsg.innerHTML ="Veuillez entrer votre adresse postale, merci.";
+  validForm = false;
+  return false
+}
+else{
+  addressErrorMsg.innerHTML ="";
+  let address = form['address'].value;
+  contact[2]= address;
+  validForm = true;
+
+}
+
+
+/************************Travail sur l'input city************************* */
+ 
+
+if(form['city'].value === "" || !nameRegex.test(form['city'].value)){
+  cityErrorMsg.innerHTML ="Veuillez entrer votre Ville, merci.";
+  validForm = false;
+  return false
+}
+else{
+  cityErrorMsg.innerHTML ="";
+  let city = form['city'].value;
+  contact[3]= city;
+  validForm = true;
+
+}
+
+/************************Travail sur l'input email************************* */
+ 
+
+if(form['email'].value === "" || !emailRegex.test(form['email'].value)){
+  emailErrorMsg.innerHTML ="Veuillez entrer une adresse email valide, merci.";
+  validForm = false;
+  return false
+}
+else{
+  emailErrorMsg.innerHTML ="";
+  let email = form['email'].value;
+  contact[4]= email;
+  validForm = true;
+
+}
+
+
+
+//////////////////////////////////////////////////////
+/*************Récupération des order Ids *********** */
+function getOrderId(){
+
+  Panier.map(prodId=>{
+    id = prodId.addId;
+    products.push(id)
+  })
+  }
+  getOrderId()
+  
+
+/*Constitution de l'objet contact pour faire une requête POST */
+const body = {
+  contact : {
+    firstName : contact[0],
+    lastName : contact[1],
+    address : contact[2],
+    city : contact[3],
+    email : contact[4]
+  },
+  products : products
+}
+
+
+  fetch("http://localhost:3000/api/products/order", {
+    method :"POST",
+    body :  JSON.stringify(body),
+    headers : {
+      "content-type" : "application/json"},
+  })
+  .then((res)=>{
+    return res.json();
+  })
+  .then((kanap)=>{
+   
+    localStorage.clear()
+    window.location.href = "confirmation.html?id="+kanap.orderId;
+
+  })
+  .catch((error) =>{
+    console.error(error)
+  })
+
+})
