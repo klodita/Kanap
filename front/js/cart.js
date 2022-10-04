@@ -275,7 +275,6 @@ Panier.map((produit)=>{
  
 
 /******************************SUPPRESSION ARTICLE*****************************************/
-    divDelete.addEventListener("click", ()=> {
       const sup = document.querySelectorAll(".deleteItem");
       sup.forEach(btn => {
         btn.addEventListener("click", (e) =>{
@@ -294,7 +293,7 @@ Panier.map((produit)=>{
 
         })
       })
-    })
+    
 /************************************************************************************/ 
 
 /********************* CAlCULE PREMIER PANIER APRES CHOIX PAGE PRODUIT ***************/
