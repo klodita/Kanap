@@ -16,6 +16,14 @@ let dataPrice = [];
 
 let id =0;
 
+/*utilisation de la fonction sort() pour trier les éléments du Panier selon leur nom 
+afin que les modèles soient groupés en fonction du nom et de la couleur*/
+
+Panier.sort(function(a,b){
+  return a.nom>b.nom ? 1:-1
+})
+
+
 Panier.map((produit)=>{
   let key = produit.key;
   let newId = produit.addId;

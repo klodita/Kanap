@@ -88,7 +88,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
          
             let key = `${id}`+ colors.substring(2);
             let addId =`${id}`;
-           
+            let nom = kanap.name;
            
 // /*création d'un objet pour identfier les donner à stocker dans le localStorage*/
     
@@ -97,6 +97,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
         addId : addId,
         quantité : Number(quantite),
         color : colors,
+        nom : nom
         
     }
    
