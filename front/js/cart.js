@@ -20,7 +20,10 @@ let id =0;
 afin que les modèles soient groupés en fonction du nom et de la couleur*/
 
 Panier.sort(function(a,b){
-  return a.nom>b.nom ? 1:-1
+  for(i=0; i< Panier.length; i++){
+    return a.nom>b.nom ? 1:-1
+  }
+  
 })
 
 
