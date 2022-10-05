@@ -23,7 +23,7 @@ Panier.sort(function(a,b){
   for(i=0; i< Panier.length; i++){
     return a.nom>b.nom ? 1:-1
   }
-  
+  afficherTag()
 })
 
 
@@ -291,6 +291,13 @@ Panier.map((produit)=>{
           else {
             localStorage.removeItem(key,(Panier));
             location.reload();
+
+            // La fonction sort permet ici de retrier les produits du panier après suppression d'un article
+            Panier.sort(function(a,b){
+              for(i=0; i< Panier.length; i++){
+                return a.nom>b.nom ? 1:-1
+              }
+            })
           }
            btn.remove();
 
