@@ -81,7 +81,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
             
                
             if(colors == null || colors === "" || quantite == null || 
-            quantite == 0 || quantite >= 101){
+            quantite <= 0 || quantite >= 101){
                 alert("SVP choissez une couleur et une quantité max 100, merci.");
                 return bouton;
               }
