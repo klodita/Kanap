@@ -1,5 +1,8 @@
 
 let id =0;
+// Récupération du Panier dans le Localstorage et conversion de l'objet dataPanier en Array Panier;
+
+let Panier = [];
 
   function afficherTag(){
     fetch(`http://localhost:3000/api/products`)
@@ -7,9 +10,7 @@ let id =0;
     
     .then ((array)=> {
 
-// Récupération du Panier dans le Localstorage et conversion de l'objet dataPanier en Array Panier;
 
-let Panier = [];
 const quantiteProduit = localStorage.length;
 for(let i=0; i<quantiteProduit; i ++){
       const produit = localStorage.getItem(localStorage.key(i));
